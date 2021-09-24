@@ -3,12 +3,13 @@ import SignUp from "../pages/SignUp";
 import WelcomePage from "../pages/WelcomePage";
 
 const Routes = () => {
+
   return (
     <Switch>
       <Route exact path="/">
-        <SignUp/>
+        <SignUp />
       </Route>
-      <Route path="/welcomepage">
+      <Route path="/:id">
         <WelcomePage />
       </Route>
     </Switch>

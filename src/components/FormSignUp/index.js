@@ -1,12 +1,13 @@
 import './styles.css'
-import { useHistory } from "react-router";
+import { useHistory, useParams } from "react-router";
 import { Button, TextField, Paper } from "@material-ui/core";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
-const FormSignUp = () => {
+const FormSignUp = ({setUser}) => {
   const history = useHistory();
+  const params = useParams();
 
   const schema = yup.object().shape({
     name: yup.string().required("Campo obrigatório"),
@@ -32,7 +33,8 @@ const FormSignUp = () => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const handleForm = (data) => {  
-    history.push('/welcomepage')
+    history.push(`/${data.name}`)
+   
   };
 
   return (
@@ -40,11 +42,11 @@ const FormSignUp = () => {
     <form onSubmit={handleSubmit(handleForm)}>
       <div>
         <TextField
-          label="Nome"
+          label="Nome:"
           margin="normal"
           variant="outlined"
           size="small"
-          color="secundary"
+          color="primary"
           {...register("name")}
           error={!!errors.name}
           helperText={errors.name?.message}
@@ -52,11 +54,11 @@ const FormSignUp = () => {
       </div>
       <div>
         <TextField
-          label="Email"
+          label="Email:"
           margin="normal"
           variant="outlined"
           size="small"
-          color="secundary"
+          color="primary"
           {...register("email")}
           error={!!errors.email}
           helperText={errors.email?.message}
@@ -64,11 +66,12 @@ const FormSignUp = () => {
       </div>
       <div>
         <TextField
-          label="Password"
+          label="Senha:"
           margin="normal"
+          type='password'
           variant="outlined"
           size="small"
-          color="secundary"
+          color="primary"
           {...register("password")}
           error={!!errors.password}
           helperText={errors.password?.message}
@@ -76,11 +79,12 @@ const FormSignUp = () => {
       </div>
       <div>
         <TextField
-          label="confirmPassword"
+          label="Confirme sua senha:"
           margin="normal"
           variant="outlined"
-    
-          color="secundary"
+          type='password'
+          size="small"
+          color="primary"
           {...register("confirmPassword")}
           error={!!errors.confirmPassword}
           helperText={errors.confirmPassword?.message}
@@ -92,7 +96,7 @@ const FormSignUp = () => {
           variant="contained"
           color="secondary"
         >
-          Cadastrar
+          Cadastre-se
         </Button>
       </div>
     </form>
